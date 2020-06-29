@@ -6,24 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state =  {
-      monsters: [
-        {
-          id: 1,
-          name: 'Banshee'
-        },
-        {
-          id: 2,
-          name: 'Troll'
-        },
-        {
-          id: 3,
-          name: 'Dwarf'
-        },
-        {
-          id: 4,
-          name: 'Frankenstein'
-        }
-      ]
+      monsters: []
     }
   }
 
@@ -35,6 +18,12 @@ class App extends Component {
         ))}
       </div>
     );
+  }
+
+  componentDidMount() { //Renders this code block when a component is mounted on virtual DOM for first time
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then((users) => {this.setState({monsters: users})});
   }
 }
 
