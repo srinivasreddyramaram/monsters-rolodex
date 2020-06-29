@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import { CardList } from './components/card-list/card-list.component';
 
 class App extends Component {
-  
+
+  //to get the state from Component
   constructor() {
     super();
-    this.state =  {
+    this.state = {
       monsters: []
     }
   }
@@ -13,17 +15,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.monsters.map((monster) => (
-        <h1 key={monster.id}>{monster.name}</h1>
-        ))}
+        <CardList monsters={this.state.monsters}>
+        </CardList>
       </div>
     );
   }
 
   componentDidMount() { //Renders this code block when a component is mounted on virtual DOM for first time
     fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
-    .then((users) => this.setState({monsters: users}));
+      .then((response) => response.json())
+      .then((users) => this.setState({ monsters: users }));
   }
 }
 
