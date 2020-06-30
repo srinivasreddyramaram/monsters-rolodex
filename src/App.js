@@ -14,6 +14,11 @@ class App extends Component {
     }
   }
 
+  //arrow function binds the function to the context where it is defined, here App component
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  }
+
   render() {
     //object destructuring - make a constant copy of state here without affecting original state, for later use
     const { monsters, searchField } = this.state;
@@ -23,7 +28,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <SearchBox placeholder="search monsters" handleChange={e => this.setState({ searchField: e.target.value })} />
+        <SearchBox placeholder="search monsters" handleChange={this.handleChange} />
         <CardList monsters={filteredMonsters} />
       </div>
     );
