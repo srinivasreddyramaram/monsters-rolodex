@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search-box/search-box.component';
 
 class App extends Component {
 
@@ -8,15 +9,22 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      monsters: []
+      monsters: [],
+      searchField: ""
     }
   }
 
   render() {
+    //object destructuring - make a constant copy of state here without affecting original state, for later use
+    const { monsters, searchField } = this.state;
+    const filteredMonsters = monsters.filter(monster =>
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );
+
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters}>
-        </CardList>
+        <SearchBox placeholder="search monsters" handleChange={e => this.setState({ searchField: e.target.value })} />
+        <CardList monsters={filteredMonsters} />
       </div>
     );
   }
